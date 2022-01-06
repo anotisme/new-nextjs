@@ -1,9 +1,5 @@
-import type { NextPage } from 'next'
-
-const About = ({style}: {style: string}) => {
-  return (
-		<div className={style}>Hello World</div>
-  )
+function About() {
+  return <div>About</div>
 }
 
 export default About
