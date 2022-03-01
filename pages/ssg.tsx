@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SSG = () => {
+function SSG() {
   return (
 		<h1>SSG: Static Side Generation</h1>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ISR = () => {
+function ISR() {
   return (
 		<h1>ISR: Incremental Static Regeneration</h1>
   )

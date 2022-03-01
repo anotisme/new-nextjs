@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CSR = () => {
+function CSR() {
   return (
 		<h1>CSR: Client Side Rendering</h1>
   )

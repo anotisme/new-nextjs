@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SSR = () => {
+function SSR() {
   return (
 		<h1>SSR: Server Side Rendering</h1>
   )
