@@ -1,25 +1,29 @@
 // static site generation
+import { server } from '../config';
 
 export default function StaticSiteGeneration({ data }) {
-  return (
-    <>
-      {data.map((e) => (
-        <h2 key={e.id}>{e.name}</h2>
-      ))}
-    </>
-  );
+  return data.posts.map((e, index) => (
+    <div key={index}>
+      <h1>{e.title}</h1>
+      <p>{e.content}</p>
+    </div>
+  ));
 }
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users');
-  const data = await res.json();
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch(`${server}/api/posts`)
+  const data = await res.json()
 
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
   return {
     props: {
-      data, // will be passed to the page component as props
+      data,
     },
-  };
+  }
 }

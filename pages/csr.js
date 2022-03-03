@@ -1,24 +1,19 @@
-// client side rendered
-import { useEffect, useState } from 'react';
+import useSWR from 'swr'
 
-export default function ClientSideRendered() {
-  const [state, setState] = useState([]);
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-  async function getData() {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = await res.json();
-    setState(data);
-  }
+function CSR() {
+  const { data, error } = useSWR('/api/posts', fetcher)
 
-  useEffect(() => {
-    getData();
-  }, []);
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
 
-  return (
-    <>
-      {state.map((e) => (
-        <h2 key={e.id}>{e.title}</h2>
-      ))}
-    </>
-  );
+  return data.posts.map((e, index) => (
+    <div key={index}>
+      <h1>{e.title}</h1>
+      <p>{e.content}</p>
+    </div>
+  ));
 }
+
+export default CSR

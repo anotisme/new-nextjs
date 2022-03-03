@@ -1,30 +1,29 @@
 // incremental static generation
+import { server } from '../config';
 
 export default function IncrementalStaticRegeneration({ data }) {
-  return (
-    <>
-      {data.map((e) => (
-        <h2 key={e.id}>{e.title}</h2>
-      ))}
-    </>
-  );
+  return data.posts.map((e, index) => (
+    <div key={index}>
+      <h1>{e.title}</h1>
+      <p>{e.content}</p>
+    </div>
+  ));
 }
 
 // This function gets called at build time on server-side.
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/todos');
-  const data = await res.json();
+  const res = await fetch(`${server}/api/posts`)
+  const data = await res.json()
 
   return {
     props: {
-      data, // will be passed to the page component as props
+      data,
     },
-
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every second
-    revalidate: 100, // In seconds
-  };
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
+  }
 }
