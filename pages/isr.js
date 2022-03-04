@@ -1,12 +1,17 @@
 // incremental static generation
 
 export default function IncrementalStaticRegeneration({ data }) {
-  return data.posts.map((e, index) => (
-    <div key={index}>
-      <h1>{e.title}</h1>
-      <p>{e.content}</p>
-    </div>
-  ));
+  const posts = data.posts;
+  return (
+    <>
+      {posts.map((post, index) => (
+        <div key={index}>
+          <h2>Title: {post.title}</h2>
+          <p>Content: {post.content}</p>
+        </div>
+      ))}
+    </>
+  );
 }
 
 // This function gets called at build time on server-side.
