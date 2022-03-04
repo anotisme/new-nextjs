@@ -1,5 +1,4 @@
 // incremental static generation
-import { server } from '../config';
 
 export default function IncrementalStaticRegeneration({ data }) {
   return data.posts.map((e, index) => (
@@ -14,7 +13,7 @@ export default function IncrementalStaticRegeneration({ data }) {
 // It may be called again, on a serverless function, if
 // revalidation is enabled and a new request comes in
 export async function getStaticProps() {
-  const res = await fetch(`${server}/api/posts`)
+  const res = await fetch('http://localhost:3000/api/posts')
   const data = await res.json()
 
   return {

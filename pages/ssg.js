@@ -1,5 +1,4 @@
 // static site generation
-import { server } from '../config';
 
 export default function StaticSiteGeneration({ data }) {
   return data.posts.map((e, index) => (
@@ -16,7 +15,7 @@ export default function StaticSiteGeneration({ data }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch(`${server}/api/posts`)
+  const res = await fetch('http://localhost:3000/api/posts')
   const data = await res.json()
 
   // By returning { props: { posts } }, the StaticSiteGeneration component
