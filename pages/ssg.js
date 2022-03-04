@@ -19,7 +19,7 @@ export async function getStaticProps() {
   const res = await fetch(`${server}/api/posts`)
   const data = await res.json()
 
-  // By returning { props: { posts } }, the Blog component
+  // By returning { props: { posts } }, the StaticSiteGeneration component
   // will receive `posts` as a prop at build time
   return {
     props: {

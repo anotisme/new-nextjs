@@ -1,21 +1,26 @@
+// server site rendering
 
-import { server } from '../config';
-
-export default function SSR({ data }) {
-  return data.posts.map((e, index) => (
-    <div key={index}>
-      <h1>{e.title}</h1>
-      <p>{e.content}</p>
-    </div>
-  ));
+export default function ServerSideRendered({ data }) {
+  const posts = data.posts;
+  return (
+    <>
+      {posts.map((post, index) => (
+        <div key={index}>
+          <h2>Title: {post.title}</h2>
+          <p>Content: {post.content}</p>
+        </div>
+      ))}
+    </>
+  );
 }
 
-// This gets called on every request
 export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`${server}/api/posts`)
-  const data = await res.json()
+  const res = await fetch('http://localhost:3000/api/posts');
+  const data = await res.json();
 
-  // Pass data to the page via props
-  return { props: { data } }
+  return {
+    props: {
+      data,
+    },
+  };
 }
